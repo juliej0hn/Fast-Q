@@ -1,0 +1,248 @@
+#auth-view {
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 68px);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    margin: auto;
+}
+
+.auth-card h2 {
+    font-size: 1.35rem;
+    margin-bottom: 16px;
+    color: #1a1f2e;
+}
+
+body.dark .auth-card h2 {
+    color: #e6edf3;
+}
+
+.auth-tabs {
+    display: flex;
+    background-color: #f3f4f6;
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 18px;
+    gap: 4px;
+}
+
+body.dark .auth-tabs {
+    background-color: #21262d;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 9px;
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #6b7280;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.25s, color 0.25s;
+}
+
+body.dark .tab-btn {
+    color: #8b949e;
+}
+
+.tab-btn.active {
+    background-color: #ffffff;
+    color: #1a1f2e;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+body.dark .tab-btn.active {
+    background-color: #30363d;
+    color: #e6edf3;
+}
+
+.social-login {
+    text-align: center;
+    margin-top: 18px;
+}
+
+.social-login p {
+    color: #9ca3af;
+    font-size: 0.83rem;
+    margin-bottom: 10px;
+}
+
+.social-btns {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.btn-social {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid #d1d5db;
+    background-color: #f9fafb;
+    color: #1a1f2e;
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+}
+
+body.dark .btn-social {
+    background-color: #21262d;
+    border-color: #30363d;
+    color: #e6edf3;
+}
+
+.btn-social:hover {
+    border-color: #5a9ef5;
+    background-color: #5a9ef5;
+    color: white;
+}
+
+.hint {
+    font-size: 0.78rem;
+    color: #9ca3af;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.sector-row {
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sector-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    color: #9ca3af;
+    opacity: 0.6;
+    font-size: 0.8rem;
+    transition: opacity 0.25s, color 0.25s, transform 0.25s;
+    padding: 8px 10px;
+    border-radius: 10px;
+}
+
+.sector-item:hover,
+.sector-item.active {
+    opacity: 1;
+    color: #5a9ef5;
+    transform: scale(1.1);
+}
+
+.sector-icon {
+    font-size: 1.8rem;
+}
+
+.slots-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.slot-tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 5px 11px;
+    font-size: 0.82rem;
+    color: #1a1f2e;
+}
+
+body.dark .slot-tag {
+    background-color: #21262d;
+    border-color: #30363d;
+    color: #e6edf3;
+}
+
+.slot-tag .remove {
+    color: #e84040;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.slot-tag .remove:hover {
+    opacity: 0.7;
+}
+
+.slot-add-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.slot-add-row input[type="date"],
+.slot-add-row input[type="time"] {
+    flex: 1;
+    min-width: 110px;
+    padding: 8px 11px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    background-color: #f9fafb;
+    color: #1a1f2e;
+    font-size: 0.86rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.25s;
+}
+
+body.dark .slot-add-row input[type="date"],
+body.dark .slot-add-row input[type="time"] {
+    background-color: #21262d;
+    border-color: #30363d;
+    color: #e6edf3;
+    color-scheme: dark;
+}
+
+.slot-add-row input:focus {
+    border-color: #5a9ef5;
+}
+
+.toggle-list {
+    list-style: none;
+}
+
+.toggle-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 0.88rem;
+    color: #1a1f2e;
+}
+
+body.dark .toggle-list li {
+    border-color: #30363d;
+    color: #e6edf3;
+}
+
+.toggle-list li:last-child {
+    border: none;
+}
+
+.buffer-ctrl {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #1a1f2e;
+    font-weight: 600;
+}
+
+body.dark .buffer-ctrl {
+    color: #e6edf3;
+}

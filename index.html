@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastQ — Don't wait in line, spend your time.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="Core Landing Page/BaseStyles.css">
+    <link rel="stylesheet" href="Core Landing Page/Navbar.css">
+
+    <link rel="stylesheet" href="Landing Content/FeaturesAbout.css">
+    <link rel="stylesheet" href="Landing Content/MediaQueries.css">
+</head>
+
+<body>
+<nav class="navbar">
+    <div class="nav-inner">
+        <span class="logo">FastQ</span>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#about">About</a></li>
+            <li>
+                <button class="dark-toggle" onclick="toggleDark()">
+                    <span class="dark-knob" id="dark-knob">🌙</span>
+                </button>
+            </li>
+            <li>
+                <a href="auth.html" class="btn-nav-cta">Login / Sign Up</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main class="page-top">
+    <section id="hero" class="hero">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="hero-content">
+
+            <h1> Effortless Appointments,<br>Seamless Journeys.</h1>
+            <p>Don't wait in line, spend your time</p>
+            <button class="btn-primary"
+                onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">
+                Explore Features
+            </button>
+       </div>
+    </section>
+
+    <section id="features" class="features">
+        <h2 class="section-title">Smart Features for Everyone</h2>
+        <div class="features-grid">
+        <div class="card">
+            <h3>For Clients</h3>
+            <ul class="feature-list">
+                <li><strong>Provider Discovery:</strong> Browse businesses by category instantly.</li>
+                <li><strong>Smart Slots:</strong> Pick exact dates and times that work for you.</li>
+                <li><strong>Live Journey:</strong> Real-time countdown timer tied to your booking.</li>
+                <li><strong>Transit Options:</strong> Drive or walk mode with a personal buffer.</li>
+                <li><strong>One-Tap Late:</strong> Notify the host instantly if you're running behind.</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>For Hosts</h3>
+            <ul class="feature-list">
+                <li><strong>Business Setup:</strong> Publish your business with exact appointment slots.</li>
+                <li><strong>Booking Queue:</strong> See every booking and manage the queue live.</li>
+                <li><strong>Delay Broadcast:</strong> Push a delay notification to all clients instantly.</li>
+                <li><strong>Feature Control:</strong> Choose what clients see when booking.</li>
+                <li><strong>Early Arrival Blast:</strong> Fill cancellations with in-transit clients.</li>
+            </ul>
+        </div>
+        </div>
+      </section>  
+
+      <section id="about" class="section">
+        <div class="card about-card">
+            <h2 class="section-title">About FastQ</h2>
+            <p>FastQ was built on a simple idea — your time is valuable. We connect businesses and clients through
+                smart scheduling so no one waits in a crowded lobby.</p>
+            <p>Set your slots, book your time, and arrive exactly when needed. No stress, no guessing.</p>
+        </div>
+      </section>
+
+</main>
+<script src="Core Landing Page/DarkModeToggle.js"></script>
+<script src="Landing Content/ThemeSync.js"></script>
+
+
+
+</body>
+</html>

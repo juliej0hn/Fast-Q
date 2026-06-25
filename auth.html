@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastQ — Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="Core Landing Page/BaseStyles.css">
+    <link rel="stylesheet" href="Core Landing Page/Navbar.css">
+    <link rel="stylesheet" href="Landing Content/FeaturesAbout.css">
+    <link rel="stylesheet" href="Landing Content/MediaQueries.css">
+
+    <link rel="stylesheet" href="Authentication UI/FormStyles.css">
+    <link rel="stylesheet" href="Client Dashboard/DashboardCardStyles.css">
+    <link rel="stylesheet" href="Manager Dashboard/QueueTimerStyles.css">
+
+  <script>
+     if (localStorage.getItem("fq-theme") === 'dark') {
+        document.documentElement.style.backgroundColor = '#0d1117';
+        }
+    </script>
+
+</head>
+
+<body>
+ <nav class="navbar">
+    <div class="nav-inner">
+        <span class="logo">FastQ</span>
+        <ul class="nav-links">
+            <li><a href="index.html">← Back to Site</a></li>
+            <li>
+                <button class="dark-toggle" onclick="toggleDark()">
+                    <span class="dark-knob" id="dark-knob">🌙</span>
+                </button>
+            </li>
+            <li>
+                <button class="btn-nav-cta" id="nav-logout" style="display:none;" onclick="logoutToGateway()">
+                        Logout
+                </button>
+            </li>
+        </ul>
+    </div>
+ </nav>
+ <div class="app-wrap">
+
+    <section id="gateway-view" class="view active">
+        <div class="gateway-inner">
+            <h1>Welcome to fastQ</h1>
+            <p>Select your portal to continue</p>
+            <div class="role-cards">
+                <div class="role-card" onclick="navigateTo('auth-view','client')">
+                    <span class="role-icon">👤</span>
+                    <h2>I am a Client</h2>
+                </div>
+                <div class="role-card" onclick="navigateTo('auth-view','host')">
+                    <span class="role-icon">🏢</span>
+                    <h2>I am a Host</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <section id="auth-view" class="view">
+        <div class ="auth-card card">
+          <button class="btn-back" onclick="navigateTo('gateway-view')">← Back</button>
+          <h2>Access Portal</h2>
+
+            <div class="auth-tabs">
+                <button class="tab-btn active" id="login-tab" onclick="switchTab('login')">Login</button>
+                <button class="tab-btn" id="signup-tab" onclick="switchTab('signup')">Sign up</button>
+            </div>
+
+            <form onsubmit="handleAuth(event)">
+                <div id="signup-fields" class="signup-fields hidden">
+                <div class="input-row">
+                    <div class="input-group">
+                        <input type="text" id="first-name" placeholder="First Name">
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="last-name" placeholder="Last Name">
+                    </div>
+                </div>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn-form" id="auth-submit">Login</button>
+            </form>
+            <div class="social-login">
+                <p>Or continue with</p>
+                <div class="social-btns">
+                    <button class="btn-social">G</button>
+                    <button class="btn-social">⌘</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="host-dashboard" class = "view">
+        <div class ="view-header">
+            <h3>Host Dashboard</h3>
+            <button class ="btn-logout" onclick="logoutToGateway()">Logout</button>
+        </div>
+    
+        <div class ="card">
+            <h4>Business Identity</h4>
+            <div class ="input-group" style ="margin-top: 10px;">
+                <input type="text" id="business-name" placeholder="Business Name (e.g. City Dental)">
+            </div>
+            <div class="input-group">
+                <input type="text" id="business-location" placeholder="Address / Location">
+            </div>
+        </div>
+       
+    <div class="card">
+        <h4>Sector</h4>
+        <div class="sector-row">
+            <div class="sector-item active" onclick="selectSector(this,'Clinic')">
+                <span class="sector-icon">🏥</span><span>Clinic</span>
+            </div>
+        <div class="sector-item" onclick="selectSector(this,'Bank')">
+                <span class="sector-icon">🏦</span><span>Bank</span>
+        </div>
+        <div class="sector-item" onclick="selectSector(this,'Gym')">
+                <span class="sector-icon">💪</span><span>Gym</span>
+        </div>
+         <div class="sector-item" onclick="selectSector(this,'Salon')">
+                <span class="sector-icon">✂️</span><span>Salon</span>
+        </div>
+         <div class="sector-item" onclick="selectSector(this,'Other')">
+                <span class="sector-icon">🏪</span><span>Other</span>
+        </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h4>Appointment Slots</h4>
+        <p class="hint">Pick exact dates and times clients can book</p>
+        <div class="slots-wrap" id="slots-wrap"></div>
+        <div class="slot-add-row">
+            <input type="date" id="slot-date">
+            <input type="time" id="slot-time">
+            <button class="btn-add" onclick="addSlot()">+ Add Slot</button>
+        </div>
+    </div>
+   
+    <div class="card">
+        <h4>Queue Settings</h4>
+        <ul class="toggle-list">
+            <li>
+                <span>Service Duration Buffer</span>
+                <div class="buffer-ctrl">
+                    <button class="btn-circle" onclick="adjustBuffer(-5)">−</button>
+                    <span id="buffer-val">10</span>m 
+                    <button class="btn-circle" onclick="adjustBuffer(5)">+</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h4>Client-Facing Features</h4>
+        <p class="hint">Only enabled features are shown to clients when booking</p>
+        <ul class="toggle-list">
+            <li>
+                <span>🔔 AI-Driven Reminders</span>
+                <label class="switch">
+                    <input type="checkbox" id="feat-ai" checked>
+                    <span class="switch-slider"></span>
+                </label>
+            </li>
+            <li>
+                <span>💳 Payment Methods</span>
+                <label class="switch">
+                    <input type="checkbox" id="feat-pay" checked>
+                    <span class="switch-slider"></span>
+                </label>
+            </li>
+            <li>
+                 <span>👨‍⚕️ Doctor / Instructor Selection</span>
+                <label class="switch">
+                    <input type="checkbox" id="feat-doc">
+                    <span class="switch-slider"></span>
+                </label>
+            </li>
+            <li>
+                  <span>📍Arrival Time Tracking</span>
+                <label class="switch">
+                    <input type="checkbox" id="feat-arr">
+                    <span class="switch-slider"></span>
+                </label>
+            </li>
+            <li>
+                 <span>⏱ Duration Estimate</span>
+                <label class="switch">
+                    <input type="checkbox" id="feat-dur" checked>
+                    <span class="switch-slider"></span>
+                </label>
+            </li>
+
+            <li>
+                 <span>📧 Email Reminders</span>
+                <label class="switch">
+                    <input type="checkbox" id="feat-email">
+                    <span class="switch-slider"></span>
+                </label>
+            </li>
+        </ul>
+    </div>
+    
+    <button class="btn-publish" onclick="publishBusiness()">🚀 Publish Business</button>
+    </section>
+     
+    <section id="host-manager"  class="view">
+        <div class="view-header">
+            <button class="btn-back" onclick="navigateTo('host-dashboard')">←</button>
+            <div>
+                <h3 id="bm-name">Business Name</h3>
+                <span class="hint" id="bm-sector"></span>
+            </div>
+            <button class="btn-logout" onclick="logoutToGateway()">Logout</button>
+        </div>
+
+        <div class="stats-row">
+            <div class="card stat-card">
+                <span class="stat-num" id="bm-total">0</span>
+                <span class="stat-label">Total Bookings</span>
+            </div>
+            <div class="card stat-card" >
+                <span class="stat-num" id="bm-waiting">0</span>
+                <span class="stat-label">In Queue</span>
+            </div>
+        </div>
+       
+        <div class="card">
+            <h4>Live Operations</h4>
+            <div class="ops-row">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span>🔴 Delay Broadcast</span>
+                    <label class="switch">
+                        <input type="checkbox" id="bm-delay-toggle" onchange="toggleDelay()">
+                        <span class="switch-slider"></span>
+                    </label>
+                </div>
+                <button class="btn-secondary" onclick="sendEarlyBlast()">Early Arrival Blast 🚀</button>
+            </div>
+            <div class="delay-msg-box" id="delay-msg-box">
+                <div class="input-group" style="margin-top:10px; margin-bottom: 8px;">
+                    <input type="text" id="delay-msg-input" placeholder="e.g Running 15 min late...">
+                </div>
+                <button class="btn-small" onclick="sendDelay()">Send to All Clients</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h4>Slot Overview</h4>
+            <p class="hint" id="bm-location"></p>
+            <div id="bm-slots"></div>
+        </div>
+
+        <div class="card">
+            <h4>Booking Queue</h4>
+            <div id="bm-queue"></div>
+        </div>
+    </section>
+    
+    <section id="user-dashboard" class="view">
+            <div class="view-header">
+                <h3>Discover</h3>
+                <button class="btn-logout" onclick="logoutToGateway()">Logout</button>
+            </div>
+            <div class="category-grid" id="category-grid"></div>
+            <div class="card">
+                <h4>My Calendar</h4>
+                <div id="calendar-list">
+                    <p class="calendar-empty">No appointments yet. Book one above!</p>
+                </div>
+            </div>
+        </section>
+
+
+         <section id="provider-view" class="view">
+            <div class="view-header">
+                <button class="btn-back" onclick="navigateTo('user-dashboard')">←</button>
+                <h3>Select Provider</h3>
+            </div>
+            <div id="provider-list"></div>
+        </section>
+
+         <section id="live-view" class="view">
+            <div class="view-header">
+                <button class="btn-back" onclick="navigateTo('user-dashboard')">←</button>
+                <h3>Live Journey</h3>
+            </div>
+
+            <div class="stepper">
+                <div class="step done" id="step-booked">Booked</div>
+                <div class="step active" id="step-transit">In Transit</div>
+                <div class="step" id="step-lobby">In Lobby</div>
+                <div class="step" id="step-session">In Session</div>
+            </div>
+
+            <div class="timer-wrap">
+                <div class="timer-circle">
+                    <span id="countdown">--:--</span>
+                    <span class="timer-label" id="timer-label">Calculating...</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h4>Transit Customization</h4>
+                <div class="custom-row" style="margin-top:10px;">
+                    <label>Personal Buffer</label>
+                    <input type="range" min="0" max="30" value="5" class="slider-input" id="transit-slider"
+                        oninput="updateBuffer()">
+                    <span id="buffer-display">5m</span>
+                </div>
+                <div class="custom-row">
+                    <label>Commute Mode</label>
+                    <div class="mode-toggle">
+                        <button class="mode-btn active" id="mode-drive" onclick="setMode('driving')">🚗 Drive</button>
+                        <button class="mode-btn" id="mode-walk" onclick="setMode('walking')">🚶 Walk</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-box">
+                <span class="alert-icon">⚠️</span>
+                <p id="traffic-msg">Moderate traffic. Check buffer time above.</p>
+            </div>
+
+            <div class="live-actions">
+                <button class="btn-late" onclick="reportLate()">Running Late 🏃💨</button>
+                <button class="btn-checkin" onclick="checkIn()">Arrived (Geofence)</button>
+            </div>
+
+            <div class="card queue-status">
+                <h4>Queue Status</h4>
+                <p>You are <strong>#1</strong> in the Queue.</p>
+                <p style="margin-top:4px;">Estimated wait: <strong>~5 mins</strong></p>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="modal-overlay hidden" id="modal">
+        <div class="modal-sheet">
+            <h4>Book Appointment</h4>
+
+            <div id="feature-tags"></div>
+           
+            <div class="input-group" style="margin-bottom:4px;">
+                <label class="hint" style="display:block; margin-bottom:6px;">Choose Service:</label>
+                <select id="service-select" onchange="updateService()"></select>
+            </div>
+    
+            <p style="font-size:0.8rem; color:#9ca3af; margin:12px 0 8px;">Select a Time Slot:</p>
+            <div class="time-slots" id="time-slots"></div>
+         
+            <div class="legend">
+                <span class="legend-item"><span class="dot green"></span> Optimal</span>
+                <span class="legend-item"><span class="dot yellow"></span> Peak Hours</span>
+            </div>
+           
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn-form" onclick="confirmBooking()">Confirm Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="Manager Dashboard/TimeCalculation.js"></script>
+    <script src="Manager Dashboard/CountdownInterval.js"></script>
+
+    <script src="Client Dashboard/DataRender.js"></script>
+    <script src="Client Dashboard/BookingConfirmation.js"></script>
+    
+    <script src="Authentication UI/LoginSignupToggle.js"></script>
+    <script src="Authentication UI/ValidationLogic.js"></script>
+    
+</body>
+</html>

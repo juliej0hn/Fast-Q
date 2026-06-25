@@ -1,0 +1,41 @@
+@media (max-width: 500px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .live-actions {
+        flex-direction: column;
+    }
+
+    .time-slots {
+        flex-direction: column;
+    }
+
+    .hero h1 {
+        font-size: 2.1rem;
+    }
+
+    .slot-add-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .input-row {
+        flex-direction: column;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 700px) {
+    .app-wrap>.view {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+}
